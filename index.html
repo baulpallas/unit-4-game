@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Star Wars RPG</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container no-gutters">
+      <div class="row">
+        <div class="col-12"><h4 id="title">Starwars RPG Game</h4></div>
+      </div>
+      <div class="row character-option d-flex">
+        <div id="luke" class="col-2 luke player square">
+          <span>Luke Skywalker</span>
+          <img src="assets/images/Luke.jpeg" alt="luke" height="100px" />
+          <span id="luke-hp"></span>
+        </div>
+        <div class="col-2 mace player row square">
+          <span>Mace Windu</span>
+          <img src="assets/images/Mace_Windu.png" alt="mace" height="100px" />
+          <span id="mace-hp"></span>
+        </div>
+        <div class="col-2 maul player container square">
+          <span>Darth Maul</span>
+          <img src="assets/images/Darthmall.jpg" alt="maul" height="100px" />
+          <span id="maul-hp"></span>
+        </div>
+        <div class="col-2 vader player container square">
+          <span>Darth Vader</span>
+          <img src="assets/images/DarthVader.jpg" alt="vader" height="100px" />
+          <span id="vader-hp"></span>
+        </div>
+        <div class="col-2 obi player container square">
+          <span>Obi Wan Kenobi</span>
+          <img src="assets/images/Obiwan.png" alt="obi" height="100" />
+          <span id="obi-hp"></span>
+        </div>
+        <div class="col-2 sidius player container square">
+          <span>Darth Sidius</span>
+          <img src="assets/images/Sidus.jpg" alt="" height="100" />
+          <span id="sidius-hp"></span>
+        </div>
+      </div>
+      <h4>Your Character</h4>
+      <div id="characterSelector" class="row character-selector"></div>
+      <h4>Enemies Available to Attack</h4>
+      <div class="enemy-container d-flex row no-gutters"></div>
+      <div class="defender d-flex row no-gutters"></div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+    <script src="assets/javascript/game.js"></script>
+  </body>
+</html>
