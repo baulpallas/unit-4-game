@@ -9,8 +9,8 @@ body {
   height: 100%;
 }
 .character-option {
-  display: flex;
-  justify-content: left;
+  /* display: flex; */
+  /* justify-content: space-between; */
   /* height: 200px; */
   width: 100%;
   margin-bottom: 20px;
@@ -18,17 +18,9 @@ body {
 
 #characterSelector {
   height: 150px;
-  display: flex;
+  /* display: flex; */
   margin: 0;
-  text-align: left;
-}
-
-.enemy {
-  background-color: red;
-}
-
-.pickedCharacter {
-  background-color: lightgreen;
+  /* justify-content: left; */
 }
 
 /* .row {
@@ -36,24 +28,34 @@ body {
   flex-direction: row;
 } */
 
+.col-8 {
+  display: flex;
+}
 .square {
   height: 160px;
   border: solid 2px black;
-  width: 15%;
+  width: 13%;
   display: flex;
   flex-direction: column;
   text-align: center;
   align-items: center;
 }
 
+.enemy {
+  border: solid 5px red;
+}
+
+.pickedCharacter {
+  border: solid 5px lightgreen;
+}
 .enemy-container {
   text-align: center;
-  display: flex;
-  justify-content: left;
+  /* display: flex;
+  justify-content: left; */
 }
 
 .pickedCharacter {
   text-align: center;
-  display: flex;
-  justify-content: left;
+  /* display: flex;
+  justify-content: left; */
 }
