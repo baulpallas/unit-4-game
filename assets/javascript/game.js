@@ -74,6 +74,7 @@ renderHeroesAtLoad();
 //
 function renderSelectedHero(numHero) {
   $(".picked-character")[0].innerHTML += establishCharacter(heroes[numHero]);
+  $(".hero-holder").toggleClass("pickedCharacter");
   $(".character-selection")[0].innerHTML = "";
   for (var i = 0; i < heroes.length; i++) {
     if (i === numHero) {
@@ -81,6 +82,7 @@ function renderSelectedHero(numHero) {
     }
     $(".enemy-row")[0].innerHTML += establishCharacter(heroes[i]);
   }
+  $(".hero-holder").toggleClass("enemy");
 }
 
 $(".hero-holder").on("click", function() {
@@ -95,6 +97,26 @@ $(".hero-holder").on("click", function() {
       starWarsRPG.heroObject = heroes[0];
       console.log(starWarsRPG);
       renderSelectedHero(0);
+    }
+    // Selects mace
+    if (starWarsRPG.heroSelected === "Mace Windu") {
+      starWarsRPG.heroObject = heroes[1];
+      console.log(starWarsRPG);
+      renderSelectedHero(1);
+    }
+
+    // Selects Maul
+    if (starWarsRPG.heroSelected === "Darth Maul") {
+      starWarsRPG.heroObject = heroes[2];
+      console.log(starWarsRPG);
+      renderSelectedHero(2);
+    }
+
+    // Selects Maul
+    if (starWarsRPG.heroSelected === "Darth Vader") {
+      starWarsRPG.heroObject = heroes[3];
+      console.log(starWarsRPG);
+      renderSelectedHero(3);
     }
   }
 });
