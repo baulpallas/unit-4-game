@@ -8,6 +8,10 @@ body {
 .main {
   height: 100%;
 }
+.hero-image {
+  height: 100px;
+}
+
 .character-option {
   /* display: flex; */
   /* justify-content: space-between; */
@@ -31,7 +35,7 @@ body {
 .col-8 {
   display: flex;
 }
-.square {
+.hero-holder {
   height: 160px;
   border: solid 2px black;
   width: 13%;

@@ -19,53 +19,26 @@
         <div class="col-12"><h4 id="title">Starwars RPG Game</h4></div>
       </div>
       <!-- Character Option -->
-      <div class="character-option d-flex flex-row">
-        <div id="luke" class="col-2 luke player square">
-          <div class="row"><span>Luke Skywalker</span></div>
-          <div class="row">
-            <img src="assets/images/Luke.jpeg" alt="luke" height="100px" />
-          </div>
-          <div class="row"><span id="luke-hp">150</span></div>
-        </div>
-        <div class="col-2 mace player square">
-          <div class="row"><span>Mace Windu</span></div>
-          <div class="row">
-            <img src="assets/images/Mace_Windu.png" alt="mace" height="100px" />
-          </div>
-          <div class="row"><span id="mace-hp">120</span></div>
-        </div>
-        <div class="col-2 maul player square">
-          <div class="row"><span>Darth Maul</span></div>
-          <div class="row">
-            <img src="assets/images/Darthmall.jpg" alt="maul" height="100px" />
-          </div>
-          <div class="row"><span id="maul-hp">110</span></div>
-        </div>
-        <div class="col-2 vader player square">
-          <div class="row"><span>Darth Vader</span></div>
-          <div class="row">
-            <img
-              src="assets/images/DarthVader.jpg"
-              alt="vader"
-              height="100px"
-            />
-          </div>
-          <div class="row"><span id="vader-hp">140</span></div>
-        </div>
-      </div>
+      <div class="character-selection d-flex flex-row"></div>
       <h4>Your Character</h4>
-      <div id="characterSelector" class="row character-selector"></div>
+      <div
+        id="characterSelector"
+        class="row picked-character d-flex flex-row"
+      ></div>
       <br />
       <h4>Enemies Available to Attack</h4>
-      <div class="enemy-container d-flex row no-gutters"></div>
-      <div class="defender d-flex row no-gutters"></div>
+      <div class="enemy-row d-flex flex-row no-gutters"></div>
+      <h4>Defender</h4>
+      <div class="defender-row d-flex flex-row no-gutters"></div>
     </div>
     <script
       src="https://code.jquery.com/jquery-3.4.1.js"
       integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
       crossorigin="anonymous"
     ></script>
-    <script src="assets/javascript/game.js"></script>
+    <!-- Character File -->
     <script src="assets/javascript/characters.js"></script>
+    <!-- Regular JS -->
+    <script src="assets/javascript/game.js"></script>
   </body>
 </html>

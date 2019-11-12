@@ -1,61 +1,143 @@
-// declare variables
-var lukeHP = 150;
-var lukeAP;
-var lukeCAP;
-var maulHP = 150;
-var maulAP;
-var maulCAP;
-var obiHP = 150;
-var obiAP;
-var obiCAP;
-var vaderHP = 150;
-var vaderAP;
-var vaderCAP;
+// Creates characters
 
-$(document).ready(function() {
-  // Luke Character selection
+var starWarsRPG = {
+  gameStage: "initial",
+  heroSelected: "",
+  heroObject: "",
+  opponentSelected: "",
+  opponentObject: "",
+  opponentsRemain: 3
+};
 
-  if ($(".player").data("clicked") !== true) {
-    console.log("fuck you");
-    $(".luke").one("click", () => {
-      console.log(event);
-      $(this).data("clicked", true);
-      $(".player").appendTo(".enemy-container");
-      $(".player").toggleClass("enemy");
-      $(".luke").appendTo(".character-selector");
-      $(".luke").toggleClass("pickedCharacter");
-    });
+// Intialize heroes
+var heroes = [
+  {
+    name: "Luke Skywalker",
+    hp: 120,
+    ap: 6,
+    cap: 7,
+    imageURL: "./assets/images/Luke.jpeg"
+  },
 
-    // Mace character selection
-    $(".mace").one("click", () => {
-      $(this).data("clicked", true);
-      $(".player").appendTo(".enemy-container");
-      $(".player").toggleClass("enemy");
-      $(".mace").appendTo(".character-selector");
-      $(".mace").toggleClass("pickedCharacter");
-    });
+  {
+    name: "Mace Windu",
+    hp: 120,
+    ap: 6,
+    cap: 7,
+    imageURL: "./assets/images/Mace_Windu.png"
+  },
 
-    // Maul character Selection
-    $(".maul").one("click", () => {
-      $(this).data("clicked", true);
-      $(".player").appendTo(".enemy-container");
-      $(".player").toggleClass("enemy");
-      $(".maul").appendTo(".character-selector");
-      $(".maul").toggleClass("pickedCharacter");
-    });
+  {
+    name: "Darth Maul",
+    hp: 120,
+    ap: 6,
+    cap: 7,
+    imageURL: "./assets/images/Darthmall.jpg"
+  },
 
-    // Maul character Selection
-    $(".vader").one("click", () => {
-      $(this).data("clicked", true);
-      $(".player").appendTo(".enemy-container");
-      $(".player").toggleClass("enemy");
-      $(".vader").appendTo(".character-selector");
-      $(".vader").toggleClass("pickedCharacter");
-    });
-  } else {
-    console.log("what");
+  {
+    name: "Darth Vader",
+    hp: 120,
+    ap: 6,
+    cap: 7,
+    imageURL: "./assets/images/DarthVader.jpg"
+  }
+];
+// =======================================================
+// =======================================================
+// Render heroes and create Divs
+function establishCharacter(hero, heroClass = "") {
+  var heroHTML =
+    '<div id="' +
+    hero["name"] +
+    '"class="mx-1 hero-holder ' +
+    heroClass +
+    ' d-flex flex-column align-items-center"> <p class="mb-0 hero-name">' +
+    hero["name"] +
+    '</p> <img class="hero-image w-100" src="' +
+    hero["imageURL"] +
+    '" alt="hero image"/><p class="mb-0 hero-hp">' +
+    hero["hp"] +
+    "</p> </div>";
+  return heroHTML;
+}
+
+// Renders characters at load in character selection row
+function renderHeroesAtLoad() {
+  for (var i = 0; i < heroes.length; i++) {
+    $(".character-selection")[0].innerHTML += establishCharacter(heroes[i]);
+  }
+}
+
+renderHeroesAtLoad();
+
+//
+function renderSelectedHero(numHero) {
+  $(".picked-character")[0].innerHTML += establishCharacter(heroes[numHero]);
+  $(".character-selection")[0].innerHTML = "";
+  for (var i = 0; i < heroes.length; i++) {
+    if (i === numHero) {
+      continue;
+    }
+    $(".enemy-row")[0].innerHTML += establishCharacter(heroes[i]);
+  }
+}
+
+$(".hero-holder").on("click", function() {
+  if (starWarsRPG.gameStage === "initial") {
+    // starWarsRPG.heroSelected = $(this).attr("id");
+    // $("id" + starWarsRPG.heroSelected).remove();
+    starWarsRPG.heroSelected = $(this).attr("id");
+    $("id" + starWarsRPG.heroSelected).remove();
+
+    //Selects luke
+    if (starWarsRPG.heroSelected === "Luke Skywalker") {
+      starWarsRPG.heroObject = heroes[0];
+      console.log(starWarsRPG);
+      renderSelectedHero(0);
+    }
   }
 });
+
+// if ($(".player").data("clicked") !== true) {
+//   console.log("fuck you");
+//   $(".luke").one("click", () => {
+//     console.log(event);
+//     $(this).data("clicked", true);
+//     $(".player").appendTo(".enemy-container");
+//     $(".player").toggleClass("enemy");
+//     $(".luke").appendTo(".character-selector");
+//     $(".luke").toggleClass("pickedCharacter");
+//   });
+
+//   // Mace character selection
+//   $(".mace").one("click", () => {
+//     $(this).data("clicked", true);
+//     $(".player").appendTo(".enemy-container");
+//     $(".player").toggleClass("enemy");
+//     $(".mace").appendTo(".character-selector");
+//     $(".mace").toggleClass("pickedCharacter");
+//   });
+
+//   // Maul character Selection
+//   $(".maul").one("click", () => {
+//     $(this).data("clicked", true);
+//     $(".player").appendTo(".enemy-container");
+//     $(".player").toggleClass("enemy");
+//     $(".maul").appendTo(".character-selector");
+//     $(".maul").toggleClass("pickedCharacter");
+//   });
+
+//   // Maul character Selection
+//   $(".vader").one("click", () => {
+//     $(this).data("clicked", true);
+//     $(".player").appendTo(".enemy-container");
+//     $(".player").toggleClass("enemy");
+//     $(".vader").appendTo(".character-selector");
+//     $(".vader").toggleClass("pickedCharacter");
+//   });
+// } else {
+//   console.log("what");
 
 //   $(".mace").one("click", () => {
 //     $(this).data("clicked", true);
