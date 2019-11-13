@@ -44,7 +44,6 @@ var heroes = [
   }
 ];
 // =======================================================
-// =======================================================
 // Render heroes and create Divs
 function establishCharacter(hero, heroClass = "") {
   var heroHTML =
@@ -85,6 +84,26 @@ function renderSelectedHero(numHero) {
   $(".hero-holder").toggleClass("enemy");
 }
 
+// function opponentSelection(numHero) {
+//   $(".picked-character")[0].innerHTML += establishCharacter(heroes[numHero]);
+//   $(".hero-holder").toggleClass("pickedCharacter");
+//   $(".character-selection")[0].innerHTML = "";
+//   for (var i = 0; i < heroes.length; i++) {
+//     if (i === numHero) {
+//       continue;
+//     }
+//     $(".enemy-row")[0].innerHTML += establishCharacter(heroes[i]);
+//   }
+//   $(".hero-holder").toggleClass("enemy");
+// }
+
+// function addSelectedHerotoDOM(i) {
+//   if (starWarsRPG.heroSelected === heroes[i].name) {
+//     starWarsRPG.heroObject = heroes[i];
+//     renderSelectedHero(i);
+//   }
+// };
+
 $(".hero-holder").on("click", function() {
   if (starWarsRPG.gameStage === "initial") {
     // starWarsRPG.heroSelected = $(this).attr("id");
@@ -95,110 +114,41 @@ $(".hero-holder").on("click", function() {
     //Selects luke
     if (starWarsRPG.heroSelected === "Luke Skywalker") {
       starWarsRPG.heroObject = heroes[0];
-      console.log(starWarsRPG);
       renderSelectedHero(0);
     }
     // Selects mace
     if (starWarsRPG.heroSelected === "Mace Windu") {
       starWarsRPG.heroObject = heroes[1];
-      console.log(starWarsRPG);
       renderSelectedHero(1);
     }
 
     // Selects Maul
     if (starWarsRPG.heroSelected === "Darth Maul") {
       starWarsRPG.heroObject = heroes[2];
-      console.log(starWarsRPG);
       renderSelectedHero(2);
+      starWarsRPG.gameStage = "opponentSelection";
     }
 
-    // Selects Maul
+    // Selects Vade
     if (starWarsRPG.heroSelected === "Darth Vader") {
       starWarsRPG.heroObject = heroes[3];
-      console.log(starWarsRPG);
       renderSelectedHero(3);
+      starWarsRPG.gameStage = "opponentSelection";
     }
   }
+  starWarsRPG.gameStage = "opponentSelection";
+  console.log(starWarsRPG);
 });
 
-// if ($(".player").data("clicked") !== true) {
-//   console.log("fuck you");
-//   $(".luke").one("click", () => {
-//     console.log(event);
-//     $(this).data("clicked", true);
-//     $(".player").appendTo(".enemy-container");
-//     $(".player").toggleClass("enemy");
-//     $(".luke").appendTo(".character-selector");
-//     $(".luke").toggleClass("pickedCharacter");
-//   });
+$(".enemy-row").on("click", function(event) {
+  if (starWarsRPG.gameStage === "opponentSelection") {
+    starWarsRPG.opponentSelected = $(this).attr("id");
+    $("#" + starWarsRPG.opponentSelected).remove();
+    console.log(event);
 
-//   // Mace character selection
-//   $(".mace").one("click", () => {
-//     $(this).data("clicked", true);
-//     $(".player").appendTo(".enemy-container");
-//     $(".player").toggleClass("enemy");
-//     $(".mace").appendTo(".character-selector");
-//     $(".mace").toggleClass("pickedCharacter");
-//   });
-
-//   // Maul character Selection
-//   $(".maul").one("click", () => {
-//     $(this).data("clicked", true);
-//     $(".player").appendTo(".enemy-container");
-//     $(".player").toggleClass("enemy");
-//     $(".maul").appendTo(".character-selector");
-//     $(".maul").toggleClass("pickedCharacter");
-//   });
-
-//   // Maul character Selection
-//   $(".vader").one("click", () => {
-//     $(this).data("clicked", true);
-//     $(".player").appendTo(".enemy-container");
-//     $(".player").toggleClass("enemy");
-//     $(".vader").appendTo(".character-selector");
-//     $(".vader").toggleClass("pickedCharacter");
-//   });
-// } else {
-//   console.log("what");
-
-//   $(".mace").one("click", () => {
-//     $(this).data("clicked", true);
-//     if (
-//       $("#luke").data("clicked") !== true ||
-//       $("#mace").data("clicked") !== true ||
-//       $("#maul").data("clicked") !== true ||
-//       $("#vader").data("clicked") !== true ||
-//       $("#obi").data("clicked") !== true ||
-//       $("#sidius").data("clicked") !== true
-//     ) {
-//       $(".player").appendTo(".enemy-container");
-//       $(".player").toggleClass("enemy");
-//       $(".mace").appendTo(".character-selector");
-//       $(".luke").toggleClass("pickedCharacter");
-//       console.log("it worked");
-//     }
-//   });
-// });
-
-// $("#luke").click(function(event) {
-//   $(this).data("clicked", true);
-//   if (
-//     $("#luke").data("clicked") !== true ||
-//     $("#mace").data("clicked") !== true ||
-//     $("#maul").data("clicked") !== true ||
-//     $("#vader").data("clicked") !== true ||
-//     $("#obi").data("clicked") !== true ||
-//     $("#sidius").data("clicked") !== true
-//   ) {
-//     $(".player").appendTo(".enemy-container");
-//     $(".player").toggleClass("enemy");
-//     $(".luke").appendTo(".character-selector");
-//     $(".luke").toggleClass("pickedCharacter");
-//     console.log("it worked");
-//   } else {
-//     $("#luke").click(function(){
-//       $("#luke").unbind();
-//     });
-//   }
-// });
-// });
+    // // Luke is Opponent
+    // if (starWarsRPG.opponentSelected === "Luke Skywalker") {
+    //   starWarsRPG.opponentObject = heroes[0];
+    //   console.log(starWarsRPG);
+  }
+});

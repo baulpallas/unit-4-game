@@ -27,11 +27,6 @@ body {
   /* justify-content: left; */
 }
 
-/* .row {
-  display: flex;
-  flex-direction: row;
-} */
-
 .col-8 {
   display: flex;
 }
