@@ -9,6 +9,8 @@ var starWarsRPG = {
   opponentsRemain: 3
 };
 
+var orginalAP;
+
 // Intialize heroes
 var heroes = [
   {
@@ -93,7 +95,7 @@ function renderSelectedHero(
   $(".hero-holder").toggleClass(newClass);
 }
 
-// Selects
+// Selects Hero
 $(".hero-holder").on("click", function() {
   if (starWarsRPG.gameStage === "initial") {
     starWarsRPG.heroSelected = $(this).attr("id");
@@ -111,10 +113,13 @@ $(".hero-holder").on("click", function() {
         );
       }
     }
+    orginalAP = starWarsRPG.heroObject["ap"];
     starWarsRPG.gameStage = "opponentSelection";
     console.log(starWarsRPG);
   }
 });
+
+// Select Opponent
 
 $(".enemy-row").on("click", ".enemy", function(event) {
   if (starWarsRPG.gameStage === "opponentSelection") {
@@ -179,18 +184,27 @@ $(".enemy-row").on("click", ".enemy", function(event) {
 $(".btn").on("click", function(event) {
   if (starWarsRPG.gameStage === "gameTime") {
     console.log("Button Works");
+
     battleFn(starWarsRPG.heroObject, starWarsRPG.opponentObject);
   }
 });
 
 function battleFn(selectedHero, enemyHero) {
-  if (starWarsRPG.gameStage === "gameTime" && enemyHero["hp"] > 0);
-  {
+  if (starWarsRPG.gameStage === "gameTime" && enemyHero["hp"] > 0) {
     var enemyHealth = enemyHero["hp"] - selectedHero["ap"];
-    var heroHealth = selectedHero["hp"] - enemyHero["ap"];
+    var heroHealth = selectedHero["hp"] - enemyHero["cap"];
+    var varHeroNewAP = orginalAP + selectedHero["ap"];
+    enemyHero["hp"] = enemyHealth;
+    selectedHero["hp"] = heroHealth;
+    selectedHero["ap"] = varHeroNewAP;
+    console.log(enemyHero["hp"], selectedHero["hp"], selectedHero["ap"]);
+  }
+  if (enemyHero["hp"] < 0) {
+    $("#" + enemyHero["name"]).remove();
+    // Bug
+  }
 
-    console.log(enemyNewHealth);
-    console.log("hero HP", selectedHero["hp"]);
-    console.log("enemy HP", enemyHero["hp"]);
+  if (selectedHero["hp"] < 0) {
+    //add gameOver functionality
   }
 }
