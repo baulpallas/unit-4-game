@@ -21,10 +21,7 @@ body {
 }
 
 #characterSelector {
-  height: 150px;
-  /* display: flex; */
-  margin: 0;
-  /* justify-content: left; */
+  margin: 0;]
 }
 
 .col-8 {
@@ -46,6 +43,10 @@ body {
 
 .pickedCharacter {
   border: solid 5px lightgreen;
+}
+
+.defender {
+  border: solid 5px red;
 }
 .enemy-container {
   text-align: center;
