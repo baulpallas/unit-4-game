@@ -108,7 +108,9 @@ $(".hero-holder").on("click", function() {
   if (starWarsRPG.gameStage === "initial") {
     // starWarsRPG.heroSelected = $(this).attr("id");
     // $("id" + starWarsRPG.heroSelected).remove();
+
     starWarsRPG.heroSelected = $(this).attr("id");
+    console.log(starWarsRPG);
     $("id" + starWarsRPG.heroSelected).remove();
 
     //Selects luke
@@ -140,15 +142,31 @@ $(".hero-holder").on("click", function() {
   console.log(starWarsRPG);
 });
 
-$(".enemy-row").on("click", function(event) {
+function addNewElementEventListener(element) {
+  $(element).on("click", function(event) {
+    event.stopPropagation();
+    console.log("CLICKED");
+  });
+}
+
+function clickListener() {
+  var element = establishCharacter(0);
+  console.log(element);
+  addNewElementEventListener(element);
+  "$defender-row".innerHTML += "hello";
+}
+
+$(".enemy-row").on("click", ".enemy", function(event) {
   if (starWarsRPG.gameStage === "opponentSelection") {
     starWarsRPG.opponentSelected = $(this).attr("id");
     $("#" + starWarsRPG.opponentSelected).remove();
-    console.log(event);
-
-    // // Luke is Opponent
-    // if (starWarsRPG.opponentSelected === "Luke Skywalker") {
-    //   starWarsRPG.opponentObject = heroes[0];
-    //   console.log(starWarsRPG);
+    console.log(starWarsRPG.opponentSelected);
   }
 });
+
+//   // Luke is Opponent
+//   if (starWarsRPG.opponentSelected === "Luke Skywalker") {
+//     starWarsRPG.opponentObject = heroes[0];
+//     console.log(starWarsRPG);
+//   }
+// }
