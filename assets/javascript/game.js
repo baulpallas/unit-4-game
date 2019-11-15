@@ -50,7 +50,7 @@ var heroes = [
 function establishCharacter(hero, heroClass = "") {
   var heroHTML =
     '<div id="' +
-    hero["name"] +
+    hero["name"].split(" ").join("-") +
     '"class="mx-1 hero-holder ' +
     heroClass +
     ' d-flex flex-column align-items-center"> <p class="mb-0 hero-name">' +
@@ -84,13 +84,12 @@ function renderSelectedHero(
   $(".hero-holder").toggleClass("pickedCharacter");
   $(pickedOldLocation)[0].innerHTML = "";
   for (var i = 0; i < heroes.length; i++) {
-    if (i === numHero) {
-      if (starWarsRPG.oppenentSelected !== "") {
-        continue;
-      }
-      continue;
+    if (
+      heroes[i].name !== starWarsRPG.opponentSelected &&
+      heroes[i].name !== starWarsRPG.heroSelected
+    ) {
+      $(enemyLocation)[0].innerHTML += establishCharacter(heroes[i]);
     }
-    $(enemyLocation)[0].innerHTML += establishCharacter(heroes[i]);
   }
   $(".hero-holder").toggleClass(newClass);
 }
@@ -98,9 +97,13 @@ function renderSelectedHero(
 // Selects Hero
 $(".hero-holder").on("click", function() {
   if (starWarsRPG.gameStage === "initial") {
-    starWarsRPG.heroSelected = $(this).attr("id");
-    console.log(starWarsRPG);
+    starWarsRPG.heroSelected = $(this)
+      .attr("id")
+      .split("-")
+      .join(" ");
     $("id" + starWarsRPG.heroSelected).remove();
+    console.log(starWarsRPG.heroSelected);
+    console.log(this);
     for (var i = 0; i < heroes.length; i++) {
       if (starWarsRPG.heroSelected === heroes[i].name) {
         starWarsRPG.heroObject = heroes[i];
@@ -123,14 +126,15 @@ $(".hero-holder").on("click", function() {
 
 $(".enemy-row").on("click", ".enemy", function(event) {
   if (starWarsRPG.gameStage === "opponentSelection") {
-    starWarsRPG.opponentSelected = $(this).attr("id");
+    starWarsRPG.opponentSelected = $(this)
+      .attr("id")
+      .split("-")
+      .join(" ");
     $("#" + starWarsRPG.opponentSelected).remove();
-    console.log(starWarsRPG.opponentSelected);
 
     // selects luke as opponent
     if (starWarsRPG.opponentSelected === "Luke Skywalker") {
       starWarsRPG.opponentObject = heroes[0];
-      console.log(starWarsRPG.opponentObject.name);
       renderSelectedHero(
         0,
         ".defender-row",
@@ -175,14 +179,14 @@ $(".enemy-row").on("click", ".enemy", function(event) {
         "enemy"
       );
     }
-    starWarsRPG.gameStage = "gameTime";
+    starWarsRPG.gameStage = "gameOn";
     console.log(starWarsRPG.gameStage);
   }
 });
 
 // initialize fight button
 $(".btn").on("click", function(event) {
-  if (starWarsRPG.gameStage === "gameTime") {
+  if (starWarsRPG.gameStage === "gameOn") {
     console.log("Button Works");
 
     battleFn(starWarsRPG.heroObject, starWarsRPG.opponentObject);
@@ -190,7 +194,7 @@ $(".btn").on("click", function(event) {
 });
 
 function battleFn(selectedHero, enemyHero) {
-  if (starWarsRPG.gameStage === "gameTime" && enemyHero["hp"] > 0) {
+  if (starWarsRPG.gameStage === "gameOn" && enemyHero["hp"] > 0) {
     var enemyHealth = enemyHero["hp"] - selectedHero["ap"];
     var heroHealth = selectedHero["hp"] - enemyHero["cap"];
     var varHeroNewAP = orginalAP + selectedHero["ap"];
@@ -200,11 +204,15 @@ function battleFn(selectedHero, enemyHero) {
     console.log(enemyHero["hp"], selectedHero["hp"], selectedHero["ap"]);
   }
   if (enemyHero["hp"] < 0) {
-    $("#" + enemyHero["name"]).remove();
-    // Bug
+    $("#" + enemyHero["name"].split(" ").join("-")).remove();
+    starWarsRPG.gameStage = "opponentSelection";
   }
 
   if (selectedHero["hp"] < 0) {
     //add gameOver functionality
   }
 }
+
+// function addHPToDOM (selectedHero, enemyHero {
+//   var newHeroHP =
+// }
