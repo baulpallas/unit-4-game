@@ -6,7 +6,8 @@ var starWarsRPG = {
   heroObject: "",
   opponentSelected: "",
   opponentObject: "",
-  opponentsRemain: 3
+  opponentsRemain: 3,
+  opponentsDefeated: []
 };
 
 var orginalAP;
@@ -86,7 +87,8 @@ function renderSelectedHero(
   for (var i = 0; i < heroes.length; i++) {
     if (
       heroes[i].name !== starWarsRPG.opponentSelected &&
-      heroes[i].name !== starWarsRPG.heroSelected
+      heroes[i].name !== starWarsRPG.heroSelected &&
+      starWarsRPG.opponentsDefeated.includes(heroes[i].name) !== true
     ) {
       $(enemyLocation)[0].innerHTML += establishCharacter(heroes[i]);
     }
@@ -205,6 +207,8 @@ function battleFn(selectedHero, enemyHero) {
   }
   if (enemyHero["hp"] < 0) {
     $("#" + enemyHero["name"].split(" ").join("-")).remove();
+    starWarsRPG.opponentsDefeated.push(enemyHero["name"]);
+    console.log(starWarsRPG.opponentsDefeated);
     starWarsRPG.gameStage = "opponentSelection";
   }
 
