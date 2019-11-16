@@ -10,20 +10,6 @@ var starWarsRPG = {
   opponentsDefeated: []
 };
 
-// function starWarsRPG() {
-//   return {
-//     gameStage: "initial",
-//     heroSelected: "",
-//     heroObject: "",
-//     opponentSelected: "",
-//     opponentObject: "",
-//     opponentsRemain: 3,
-//     opponentsDefeated: []
-//   };
-// }
-
-// starWarsRPG1 = starWarsRPG();
-
 var orginalAP;
 
 // Intialize heroes
@@ -125,8 +111,6 @@ function selectHerosEventListenerHolder() {
         .split("-")
         .join(" ");
       $("id" + starWarsRPG.heroSelected).remove();
-      console.log(starWarsRPG.heroSelected);
-      console.log(this);
       for (var i = 0; i < heroes.length; i++) {
         if (starWarsRPG.heroSelected === heroes[i].name) {
           starWarsRPG.heroObject = heroes[i];
@@ -141,7 +125,6 @@ function selectHerosEventListenerHolder() {
       }
       orginalAP = starWarsRPG.heroObject["ap"];
       starWarsRPG.gameStage = "opponentSelection";
-      console.log(starWarsRPG);
     }
   });
 }
@@ -168,15 +151,12 @@ $(".enemy-row").on("click", ".enemy", function(event) {
       }
     }
     starWarsRPG.gameStage = "gameOn";
-    console.log(starWarsRPG.gameStage);
   }
 });
 
 // initialize fight button
 $(".fight").on("click", function(event) {
   if (starWarsRPG.gameStage === "gameOn") {
-    console.log("Button Works");
-
     battleFn(starWarsRPG.heroObject, starWarsRPG.opponentObject);
   }
 });
@@ -191,19 +171,15 @@ function battleFn(selectedHero, enemyHero) {
     selectedHero["ap"] = varHeroNewAP;
     refreshHPToDOM(selectedHero);
     refreshHPToDOM(enemyHero);
-    console.log(enemyHero["hp"], selectedHero["hp"], selectedHero["ap"]);
   }
   if (enemyHero["hp"] <= 0) {
     $("#" + enemyHero["name"].split(" ").join("-")).remove();
     starWarsRPG.opponentsDefeated.push(enemyHero["name"]);
-    console.log(starWarsRPG.opponentsDefeated);
     starWarsRPG.gameStage = "opponentSelection";
     starWarsRPG.opponentsRemain--;
-    console.log(starWarsRPG.opponentsRemain);
   }
 
   if (starWarsRPG.opponentsRemain === 0) {
-    console.log("no opponents remain");
     gameOver();
     $(".defender-row").append(`<h2>You won! Play again?</h2>`);
   }
@@ -229,7 +205,6 @@ function gameOver() {
   heroes = [];
   heroes = initializeHero();
   starWarsRPG.gameStage = "initial";
-  console.log(starWarsRPG);
 }
 
 $(".restart").on("click", function() {

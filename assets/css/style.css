@@ -38,15 +38,15 @@ body {
 }
 
 .enemy {
-  border: solid 5px red;
+  /* border: solid 5px red; */
 }
 
 .pickedCharacter {
-  border: solid 5px lightgreen;
+  /* border: solid 5px lightgreen; */
 }
 
 .defender {
-  border: solid 5px red;
+  /* border: solid 5px red; */
 }
 .enemy-container {
   text-align: center;
