@@ -24,25 +24,25 @@ var heroes = [
 
   {
     name: "Mace Windu",
-    hp: 120,
-    ap: 6,
-    cap: 7,
+    hp: 110,
+    ap: 8,
+    cap: 10,
     imageURL: "./assets/images/Mace_Windu.png"
   },
 
   {
     name: "Darth Maul",
-    hp: 120,
-    ap: 6,
-    cap: 7,
+    hp: 140,
+    ap: 4,
+    cap: 5,
     imageURL: "./assets/images/Darthmall.jpg"
   },
 
   {
     name: "Darth Vader",
-    hp: 120,
-    ap: 6,
-    cap: 7,
+    hp: 130,
+    ap: 5,
+    cap: 6,
     imageURL: "./assets/images/DarthVader.jpg"
   }
 ];
@@ -58,7 +58,9 @@ function establishCharacter(hero, heroClass = "") {
     hero["name"] +
     '</p> <img class="hero-image w-100" src="' +
     hero["imageURL"] +
-    '" alt="hero image"/><p class="mb-0 hero-hp">' +
+    '" alt="hero image"/><p class="mb-0 ' +
+    hero["name"].split(" ").join("-") +
+    '-hp">' +
     hero["hp"] +
     "</p> </div>";
   return heroHTML;
@@ -187,7 +189,7 @@ $(".enemy-row").on("click", ".enemy", function(event) {
 });
 
 // initialize fight button
-$(".btn").on("click", function(event) {
+$(".fight").on("click", function(event) {
   if (starWarsRPG.gameStage === "gameOn") {
     console.log("Button Works");
 
@@ -203,20 +205,86 @@ function battleFn(selectedHero, enemyHero) {
     enemyHero["hp"] = enemyHealth;
     selectedHero["hp"] = heroHealth;
     selectedHero["ap"] = varHeroNewAP;
+    refreshHPToDOM(selectedHero);
+    refreshHPToDOM(enemyHero);
     console.log(enemyHero["hp"], selectedHero["hp"], selectedHero["ap"]);
   }
-  if (enemyHero["hp"] < 0) {
+  if (enemyHero["hp"] <= 0) {
     $("#" + enemyHero["name"].split(" ").join("-")).remove();
     starWarsRPG.opponentsDefeated.push(enemyHero["name"]);
     console.log(starWarsRPG.opponentsDefeated);
     starWarsRPG.gameStage = "opponentSelection";
+    starWarsRPG.opponentsRemain--;
+    console.log(starWarsRPG.opponentsRemain);
+  }
+
+  if (starWarsRPG.opponentsRemain === 0) {
+    console.log("no opponents remain");
+    gameOver();
   }
 
   if (selectedHero["hp"] < 0) {
-    //add gameOver functionality
+    gameOver();
   }
 }
 
-// function addHPToDOM (selectedHero, enemyHero {
-//   var newHeroHP =
-// }
+function refreshHPToDOM(character) {
+  var newHP = character["hp"];
+  var nameConversion = character["name"].split(" ").join("-");
+  var characterHPName = `.${nameConversion}-hp`;
+  $(characterHPName).text(newHP);
+}
+
+function gameOver() {
+  $(".character-selection").html("");
+  $(".picked-character").html("");
+  heroes = [
+    {
+      name: "Luke Skywalker",
+      hp: 120,
+      ap: 6,
+      cap: 7,
+      imageURL: "./assets/images/Luke.jpeg"
+    },
+
+    {
+      name: "Mace Windu",
+      hp: 110,
+      ap: 8,
+      cap: 10,
+      imageURL: "./assets/images/Mace_Windu.png"
+    },
+
+    {
+      name: "Darth Maul",
+      hp: 140,
+      ap: 4,
+      cap: 5,
+      imageURL: "./assets/images/Darthmall.jpg"
+    },
+
+    {
+      name: "Darth Vader",
+      hp: 130,
+      ap: 5,
+      cap: 6,
+      imageURL: "./assets/images/DarthVader.jpg"
+    }
+  ];
+  console.log(starWarsRPG);
+}
+
+$(".restart").on("click", function(event) {
+  starWarsRPG = {
+    gameStage: "initial",
+    heroSelected: "",
+    heroObject: "",
+    opponentSelected: "",
+    opponentObject: "",
+    opponentsRemain: 3,
+    opponentsDefeated: []
+  };
+  gameOver();
+  renderHeroesAtLoad();
+  debugger;
+});
