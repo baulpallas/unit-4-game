@@ -10,42 +10,60 @@ var starWarsRPG = {
   opponentsDefeated: []
 };
 
+// function starWarsRPG() {
+//   return {
+//     gameStage: "initial",
+//     heroSelected: "",
+//     heroObject: "",
+//     opponentSelected: "",
+//     opponentObject: "",
+//     opponentsRemain: 3,
+//     opponentsDefeated: []
+//   };
+// }
+
+// starWarsRPG1 = starWarsRPG();
+
 var orginalAP;
 
 // Intialize heroes
-var heroes = [
-  {
-    name: "Luke Skywalker",
-    hp: 120,
-    ap: 6,
-    cap: 7,
-    imageURL: "./assets/images/Luke.jpeg"
-  },
 
-  {
-    name: "Mace Windu",
-    hp: 110,
-    ap: 8,
-    cap: 10,
-    imageURL: "./assets/images/Mace_Windu.png"
-  },
+function initializeHero() {
+  return [
+    {
+      name: "Luke Skywalker",
+      hp: Math.floor(Math.random() * 140) + 110,
+      ap: Math.floor(Math.random() * 10) + 1,
+      cap: Math.floor(Math.random() * 10) + 1,
+      imageURL: "./assets/images/Luke.jpeg"
+    },
 
-  {
-    name: "Darth Maul",
-    hp: 140,
-    ap: 4,
-    cap: 5,
-    imageURL: "./assets/images/Darthmall.jpg"
-  },
+    {
+      name: "Mace Windu",
+      hp: Math.floor(Math.random() * 140) + 110,
+      ap: Math.floor(Math.random() * 10) + 1,
+      cap: Math.floor(Math.random() * 10) + 1,
+      imageURL: "./assets/images/Mace_Windu.png"
+    },
 
-  {
-    name: "Darth Vader",
-    hp: 130,
-    ap: 5,
-    cap: 6,
-    imageURL: "./assets/images/DarthVader.jpg"
-  }
-];
+    {
+      name: "Darth Maul",
+      hp: Math.floor(Math.random() * 140) + 110,
+      ap: Math.floor(Math.random() * 10) + 1,
+      cap: Math.floor(Math.random() * 10) + 1,
+      imageURL: "./assets/images/Darthmall.jpg"
+    },
+
+    {
+      name: "Darth Vader",
+      hp: Math.floor(Math.random() * 140) + 110,
+      ap: Math.floor(Math.random() * 10) + 1,
+      cap: Math.floor(Math.random() * 10) + 1,
+      imageURL: "./assets/images/DarthVader.jpg"
+    }
+  ];
+}
+heroes = initializeHero();
 // =======================================================
 // Render heroes and create Divs
 function establishCharacter(hero, heroClass = "") {
@@ -99,35 +117,37 @@ function renderSelectedHero(
 }
 
 // Selects Hero
-$(".hero-holder").on("click", function() {
-  if (starWarsRPG.gameStage === "initial") {
-    starWarsRPG.heroSelected = $(this)
-      .attr("id")
-      .split("-")
-      .join(" ");
-    $("id" + starWarsRPG.heroSelected).remove();
-    console.log(starWarsRPG.heroSelected);
-    console.log(this);
-    for (var i = 0; i < heroes.length; i++) {
-      if (starWarsRPG.heroSelected === heroes[i].name) {
-        starWarsRPG.heroObject = heroes[i];
-        renderSelectedHero(
-          i,
-          ".picked-character",
-          ".character-selection",
-          ".enemy-row",
-          "enemy"
-        );
+function selectHerosEventListenerHolder() {
+  $(".hero-holder").click(function() {
+    if (starWarsRPG.gameStage === "initial") {
+      starWarsRPG.heroSelected = $(this)
+        .attr("id")
+        .split("-")
+        .join(" ");
+      $("id" + starWarsRPG.heroSelected).remove();
+      console.log(starWarsRPG.heroSelected);
+      console.log(this);
+      for (var i = 0; i < heroes.length; i++) {
+        if (starWarsRPG.heroSelected === heroes[i].name) {
+          starWarsRPG.heroObject = heroes[i];
+          renderSelectedHero(
+            i,
+            ".picked-character",
+            ".character-selection",
+            ".enemy-row",
+            "enemy"
+          );
+        }
       }
+      orginalAP = starWarsRPG.heroObject["ap"];
+      starWarsRPG.gameStage = "opponentSelection";
+      console.log(starWarsRPG);
     }
-    orginalAP = starWarsRPG.heroObject["ap"];
-    starWarsRPG.gameStage = "opponentSelection";
-    console.log(starWarsRPG);
-  }
-});
+  });
+}
+selectHerosEventListenerHolder();
 
 // Select Opponent
-
 $(".enemy-row").on("click", ".enemy", function(event) {
   if (starWarsRPG.gameStage === "opponentSelection") {
     starWarsRPG.opponentSelected = $(this)
@@ -135,53 +155,17 @@ $(".enemy-row").on("click", ".enemy", function(event) {
       .split("-")
       .join(" ");
     $("#" + starWarsRPG.opponentSelected).remove();
-
-    // selects luke as opponent
-    if (starWarsRPG.opponentSelected === "Luke Skywalker") {
-      starWarsRPG.opponentObject = heroes[0];
-      renderSelectedHero(
-        0,
-        ".defender-row",
-        ".enemy-row",
-        ".enemy-row",
-        "enemy"
-      );
-    }
-    // Selects mace
-    if (starWarsRPG.opponentSelected === "Mace Windu") {
-      starWarsRPG.opponentObject = heroes[1];
-      renderSelectedHero(
-        1,
-        ".defender-row",
-        ".enemy-row",
-        ".enemy-row",
-        "enemy"
-      );
-    }
-
-    // Selects Maul
-    if (starWarsRPG.opponentSelected === "Darth Maul") {
-      starWarsRPG.opponentObject = heroes[2];
-      renderSelectedHero(
-        2,
-        ".defender-row",
-        ".enemy-row",
-        ".enemy-row",
-        "enemy"
-      );
-    }
-
-    // Selects Vade
-    if (starWarsRPG.opponentSelected === "Darth Vader") {
-      starWarsRPG.opponentObject = heroes[3];
-      console.log(starWarsRPG.opponentObject);
-      renderSelectedHero(
-        3,
-        ".defender-row",
-        ".enemy-row",
-        ".enemy-row",
-        "enemy"
-      );
+    for (var i = 0; i < heroes.length; i++) {
+      if (starWarsRPG.opponentSelected === heroes[i].name) {
+        starWarsRPG.opponentObject = heroes[i];
+        renderSelectedHero(
+          i,
+          ".defender-row",
+          ".enemy-row",
+          ".enemy-row",
+          "enemy"
+        );
+      }
     }
     starWarsRPG.gameStage = "gameOn";
     console.log(starWarsRPG.gameStage);
@@ -221,10 +205,12 @@ function battleFn(selectedHero, enemyHero) {
   if (starWarsRPG.opponentsRemain === 0) {
     console.log("no opponents remain");
     gameOver();
+    $(".defender-row").append(`<h2>You won! Play again?</h2>`);
   }
 
   if (selectedHero["hp"] < 0) {
     gameOver();
+    $(".picked-character").append(`<h2>You Lost! Play again?</h2>`);
   }
 }
 
@@ -238,53 +224,26 @@ function refreshHPToDOM(character) {
 function gameOver() {
   $(".character-selection").html("");
   $(".picked-character").html("");
-  heroes = [
-    {
-      name: "Luke Skywalker",
-      hp: 120,
-      ap: 6,
-      cap: 7,
-      imageURL: "./assets/images/Luke.jpeg"
-    },
-
-    {
-      name: "Mace Windu",
-      hp: 110,
-      ap: 8,
-      cap: 10,
-      imageURL: "./assets/images/Mace_Windu.png"
-    },
-
-    {
-      name: "Darth Maul",
-      hp: 140,
-      ap: 4,
-      cap: 5,
-      imageURL: "./assets/images/Darthmall.jpg"
-    },
-
-    {
-      name: "Darth Vader",
-      hp: 130,
-      ap: 5,
-      cap: 6,
-      imageURL: "./assets/images/DarthVader.jpg"
-    }
-  ];
+  $(".defender-row").html("");
+  $(".enemy-row").html("");
+  heroes = [];
+  heroes = initializeHero();
+  starWarsRPG.gameStage = "initial";
   console.log(starWarsRPG);
 }
 
-$(".restart").on("click", function(event) {
-  starWarsRPG = {
-    gameStage: "initial",
-    heroSelected: "",
-    heroObject: "",
-    opponentSelected: "",
-    opponentObject: "",
-    opponentsRemain: 3,
-    opponentsDefeated: []
-  };
+$(".restart").on("click", function() {
+  starWarsRPG["gameStage"] = "initial";
+  starWarsRPG["heroSelected"] = "";
+  starWarsRPG["heroObject"] = "";
+  starWarsRPG["opponentSelected"] = "";
+  starWarsRPG["opponentObject"] = "";
+  starWarsRPG["opponentsRemain"] = 3;
+  starWarsRPG["opponentsDefeated"] = [];
+
+  starWarsRPG["gameStage"] = "initial";
+  starWarsRPG["gameStage"] = "initial";
   gameOver();
   renderHeroesAtLoad();
-  debugger;
+  selectHerosEventListenerHolder();
 });

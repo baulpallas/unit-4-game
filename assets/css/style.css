@@ -9,7 +9,7 @@ body {
   height: 100%;
 }
 .hero-image {
-  height: 100px;
+  height: 90px;
 }
 
 .character-option {
@@ -28,7 +28,7 @@ body {
   display: flex;
 }
 .hero-holder {
-  height: 160px;
+  height: 150px;
   border: solid 2px black;
   width: 13%;
   display: flex;
