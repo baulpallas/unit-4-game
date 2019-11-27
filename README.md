@@ -1,6 +1,6 @@
 # unit-4-game for Columbia Engineering Bootcamp
 
-#Starwars RPG!!!!!
+## Starwars RPG!!!!!
 
     1) Simply select one of four heroes by clicking them.
     2) Then select an enemy

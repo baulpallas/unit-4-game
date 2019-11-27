@@ -37,25 +37,10 @@ body {
   align-items: center;
 }
 
-.enemy {
-  /* border: solid 5px red; */
-}
-
-.pickedCharacter {
-  /* border: solid 5px lightgreen; */
-}
-
-.defender {
-  /* border: solid 5px red; */
-}
 .enemy-container {
   text-align: center;
-  /* display: flex;
-  justify-content: left; */
 }
 
 .pickedCharacter {
   text-align: center;
-  /* display: flex;
-  justify-content: left; */
 }

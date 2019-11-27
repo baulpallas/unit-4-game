@@ -50,7 +50,7 @@ function initializeHero() {
   ];
 }
 heroes = initializeHero();
-// =======================================================
+
 // Render heroes and create Divs
 function establishCharacter(hero, heroClass = "") {
   var heroHTML =
